@@ -79,7 +79,7 @@ if NODELOC_PROXY:
 DAILY_TASKS = {
     "topics_to_browse": int(os.environ.get("NL_TOPICS",  "15")),
     "likes_to_give":    int(os.environ.get("NL_LIKES",   "8")),
-    "replies_to_post":  int(os.environ.get("NL_REPLIES", "2")),
+    "replies_to_post":  int(os.environ.get("NL_REPLIES", "0")),
 }
 
 REPLY_TEMPLATES = [
@@ -474,6 +474,11 @@ class NodeLocUpgrade:
                 # 标记已读
                 if self.mark_topic_read(tid, topic["posts_count"]):
                     self.stats["topics_browsed"] += 1
+                # === 增加防风控：浏览帖子后的随机阅读时间 ===
+                    read_delay = random.uniform(15.5, 30.5)
+                    logger.info(f"模拟人类阅读帖子，停留 {read_delay:.1f} 秒...")
+                    time.sleep(read_delay)
+                    # ==========================================
 
                 # 点赞
                 if self.stats["likes_given"] < DAILY_TASKS["likes_to_give"]:
@@ -602,4 +607,9 @@ if __name__ == "__main__":
         logger.error("请设置 NODELOC_USERNAME / NODELOC_PASSWORD")
         tg_notify("NodeLoc: 未设置环境变量 ❌")
         raise SystemExit(1)
+      # === 增加防风控：启动/签到随机休眠 ===
+    sleep_time = random.randint(60, 900)  # 在1分钟到15分钟之间随机休眠
+    logger.info(f"防风控启动：脚本将随机休眠 {sleep_time} 秒后开始执行签到和任务...")
+    time.sleep(sleep_time)
+    # ====================================
     raise SystemExit(NodeLocUpgrade(username, password).run())
