@@ -96,3 +96,7 @@ apt-get update && apt-get install -y chromium chromium-driver
 脚本是从djkyc的脚本升级更新而来，原脚本仓库地址：[djky/cnodeloc](https://github.com/djkyc/nodeloc)
 
 感谢大神的开源精神！！
+
+---
+
+> 维护记录：2026-11-07 例行保活提交（重置 GitHub Actions 60 天无活动计时）。
