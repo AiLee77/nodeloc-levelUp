@@ -79,7 +79,7 @@ if NODELOC_PROXY:
 DAILY_TASKS = {
     "topics_to_browse": int(os.environ.get("NL_TOPICS",  "50")),
     "likes_to_give":    int(os.environ.get("NL_LIKES",   "30")),
-    "replies_to_post":  int(os.environ.get("NL_REPLIES", "0")),
+    "replies_to_post":  0,  # 固定为 0：禁用自动回帖（曾因灌水回帖被封号，勿改）
 }
 
 REPLY_TEMPLATES = [
